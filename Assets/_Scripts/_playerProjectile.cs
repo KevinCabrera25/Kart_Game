@@ -38,8 +38,9 @@ public class _playerProjectile : NetworkBehaviour
                 // Reproduce el sonido de impacto
             }*/
 
+            /*
             other.GetComponent<_characterMovement>()._vida--;
-            Despawn(gameObject);
+            Despawn(gameObject);*/
         }
     }
 }

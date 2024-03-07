@@ -7,7 +7,10 @@ using FishNet.Object.Synchronizing;
 public class _characterMovement : NetworkBehaviour
 {
 
-    [SerializeField] float velocidad;
+    [SerializeField] float _velocity = 100;
+    [SerializeField] float _steeringMax = 35;
+
+
 
     Renderer _renderer;
 
@@ -21,6 +24,7 @@ public class _characterMovement : NetworkBehaviour
 
     }
 
+    /*
     [Header("Projectile")]
     [SerializeField] GameObject _projectilePrefab;
     [SerializeField] float _projectileVelocity;
@@ -29,8 +33,9 @@ public class _characterMovement : NetworkBehaviour
     [Header("Vida")]
     [SerializeField] int _vidaMax;
     [SerializeField] Transform barraVerdeTf;
-        
+    */
 
+    /*
     [SyncVar(OnChange = nameof(VidaActualizada))]
     public int _vida; // Cambiar la variable desde el inspector no lo sincroniza
 
@@ -42,12 +47,12 @@ public class _characterMovement : NetworkBehaviour
   
         barraVerdeTf.localScale = new Vector3(_vidaActual / (float) _vidaMax, 1f, 1f);
     }
-
+    */
 
     // Start is called before the first frame update
     void Awake()
     {
-        _vida = _vidaMax;
+        //_vida = _vidaMax;
         _renderer = GetComponent<Renderer>();
     }
 
@@ -60,6 +65,13 @@ public class _characterMovement : NetworkBehaviour
             _renderer.material.color = Color.green;
             name += "- local";
         }
+
+        else
+        {
+            GetComponent<Transform>().position += new Vector3(50.0f, 0.0f, 0.0f);
+            
+        }
+              
     }
 
 
@@ -77,21 +89,23 @@ public class _characterMovement : NetworkBehaviour
             
         }
 
+        /*
         if (Input.GetKeyDown(KeyCode.Space))
         {
             DispararServerRPC();
         }
+        */
 
+        
         Vector3 inputDirection = Vector3.zero;
-        inputDirection.x = Input.GetAxis("Horizontal");
         inputDirection.y = Input.GetAxis("Vertical");
-
-        transform.Translate(inputDirection * velocidad * Time.deltaTime);
-
-
-
+        inputDirection.z = Input.GetAxis("Horizontal");
+        transform.Translate(inputDirection * _velocity * Time.deltaTime);
+        
+     
     }
 
+    /*
     [ServerRpc]
     void DispararServerRPC()
     {
@@ -105,7 +119,7 @@ public class _characterMovement : NetworkBehaviour
         FishNet.InstanceFinder.ServerManager.Spawn(_newProjectile); // Solo funciona si el GO tiene un "Network Object"
     }
 
-
+    */
 
     // ERROR
     // ServerRPC - Que no se puede ejecutar porque no eres Owner (No es tuyo o no tienes autoridad)
@@ -123,7 +137,7 @@ public class _characterMovement : NetworkBehaviour
         // _renderer.material.color = _color; // Solucion rapida repetir codigo en server
     }
 
-    // RunLocally: Ejecuta el codigo en esta misma pc, ejecuta ek codigo tambien en el server
+    // RunLocally: Ejecuta el codigo en esta misma pc, ejecuta el codigo tambien en el server
 
     [ObserversRpc(RunLocally = true)] // La funcion se ejecuta en todos los clientes // BufferLast = true carga mensajes antiguos
     void CambiarColorRPC(Color _color)
