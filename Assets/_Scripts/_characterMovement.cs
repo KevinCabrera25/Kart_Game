@@ -10,6 +10,7 @@ public class _characterMovement : NetworkBehaviour
     [SerializeField] float _velocity = 100;
     [SerializeField] float _steeringMax = 35;
 
+    [SerializeField] float _rotationSpeed;
 
 
     Renderer _renderer;
@@ -17,10 +18,9 @@ public class _characterMovement : NetworkBehaviour
     [SyncVar(OnChange = nameof(MiColorActualizado))] // Solo sincroniza variables de tipo dato
     Color miColor; // Para que simcronice, el SERVER es el que tiene que modificar
 
-
     void MiColorActualizado(Color _colorViejo, Color _nuevoColor, bool _asServer)
     {
-        _renderer.material.color = _nuevoColor; // miColor
+        //_renderer.material.color = _nuevoColor; // miColor
 
     }
 
@@ -53,7 +53,7 @@ public class _characterMovement : NetworkBehaviour
     void Awake()
     {
         //_vida = _vidaMax;
-        _renderer = GetComponent<Renderer>();
+        //_renderer = GetComponent<Renderer>();
     }
 
 
@@ -62,8 +62,11 @@ public class _characterMovement : NetworkBehaviour
         base.OnStartNetwork();
         if (base.Owner.IsLocalClient) // IsOwner
         {
-            _renderer.material.color = Color.green;
+           // _renderer.material.color = Color.green;
             name += "- local";
+
+            // Unica modificacion para los Local Events
+            GameObject.Find("LocalEvents").GetComponent<_localEvents>().EjecutarOnLocalPlayerSpawn(transform);
         }
 
         else
@@ -96,13 +99,36 @@ public class _characterMovement : NetworkBehaviour
         }
         */
 
-        
+        /*
         Vector3 inputDirection = Vector3.zero;
-        inputDirection.y = Input.GetAxis("Vertical");
-        inputDirection.z = Input.GetAxis("Horizontal");
+        inputDirection.z = Input.GetAxis("Vertical");
+        inputDirection.x = Input.GetAxis("Horizontal");
         transform.Translate(inputDirection * _velocity * Time.deltaTime);
         
-     
+
+        Vector3 inputDirection = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+        Vector3 worldInputDirection = transform.TransformDirection(inputDirection);
+        transform.Translate(worldInputDirection * _velocity * Time.deltaTime);
+        
+
+        float rotationInput = Input.GetAxis("Horizontal");
+        transform.Rotate(Vector3.up, rotationInput * _rotationSpeed * Time.deltaTime);
+
+        float forwardInput = Input.GetAxis("Vertical");
+        transform.Translate(transform.forward * forwardInput * _velocity * Time.deltaTime);
+        */
+
+
+        float rotationInput = Input.GetAxis("Horizontal");
+        transform.Rotate(Vector3.up, rotationInput * _rotationSpeed * Time.deltaTime);
+
+        float forwardInput = Input.GetAxis("Vertical");
+        forwardInput *= -1f; // Invertir la entrada vertical
+        Vector3 forwardDirection = transform.forward;
+        GetComponent<Rigidbody>().AddForce(forwardDirection * forwardInput * _velocity * Time.deltaTime, ForceMode.Force);
+
+
+
     }
 
     /*
@@ -142,7 +168,7 @@ public class _characterMovement : NetworkBehaviour
     [ObserversRpc(RunLocally = true)] // La funcion se ejecuta en todos los clientes // BufferLast = true carga mensajes antiguos
     void CambiarColorRPC(Color _color)
     {
-        _renderer.material.color = _color;
+        //_renderer.material.color = _color;
 
     }
 
