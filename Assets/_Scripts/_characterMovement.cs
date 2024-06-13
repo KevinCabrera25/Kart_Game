@@ -71,7 +71,7 @@ public class _characterMovement : NetworkBehaviour
 
         else
         {
-            GetComponent<Transform>().position += new Vector3(50.0f, 0.0f, 0.0f);
+            GetComponent<Transform>().position += new Vector3(10.0f, 0.0f, 0.0f);
             
         }
               

@@ -738,6 +738,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 277795749}
   m_CullTransparentMesh: 1
+--- !u!1 &360976228 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7443408887813606051, guid: 0b650fca685f2eb41a86538aa883e4c1, type: 3}
+  m_PrefabInstance: {fileID: 1470516352}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &360976233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360976228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f48f002b825cbd45a19bd96d90f9edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unreliableMTU: 1023
+  _ipv4BindAddress: 
+  _ipv6BindAddress: 
+  _port: 7770
+  _maximumClients: 4095
+  _clientAddress: localhost
+  _timeout: 15
 --- !u!1001 &386216567
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -908,6 +932,10 @@ PrefabInstance:
     - target: {fileID: 1344201128461483706, guid: 4e8c1844a364f224995424fea35009f7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3696803265159156332, guid: 4e8c1844a364f224995424fea35009f7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 49.79
       objectReference: {fileID: 0}
     - target: {fileID: 7520523448516981562, guid: 4e8c1844a364f224995424fea35009f7, type: 3}
       propertyPath: m_Name
@@ -1559,9 +1587,9 @@ MonoBehaviour:
   <ChildNetworkObjects>k__BackingField:
   - {fileID: 2063958004}
   SerializedTransformProperties:
-    Position: {x: 297, y: 167, z: 0}
+    Position: {x: 324.5, y: 182.5, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+    LocalScale: {x: 0.81125, y: 0.81125, z: 0.81125}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0
@@ -2818,13 +2846,20 @@ PrefabInstance:
       propertyPath: _playerPrefab
       value: 
       objectReference: {fileID: 6501783212192236955, guid: 2bb29aaaa49c32345a5eab600dd1fd67, type: 3}
+    - target: {fileID: 7443408887813606060, guid: 0b650fca685f2eb41a86538aa883e4c1, type: 3}
+      propertyPath: _addToDefaultScene
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4393252310584637084, guid: 0b650fca685f2eb41a86538aa883e4c1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 546088000}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7443408887813606051, guid: 0b650fca685f2eb41a86538aa883e4c1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 360976233}
   m_SourcePrefab: {fileID: 100100000, guid: 0b650fca685f2eb41a86538aa883e4c1, type: 3}
 --- !u!224 &1470516353 stripped
 RectTransform:
@@ -4015,7 +4050,7 @@ MonoBehaviour:
   <ParentNetworkObject>k__BackingField: {fileID: 720383078}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
-    Position: {x: 0, y: 194.46446, z: 0}
+    Position: {x: 0, y: 194.51013, z: 0}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
     LocalScale: {x: 0.38064235, y: 0.38064235, z: 0.38064235}
   _isNetworked: 1
@@ -4344,7 +4379,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3540614034546389929, guid: 2bb29aaaa49c32345a5eab600dd1fd67, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4208922917848099091, guid: 2bb29aaaa49c32345a5eab600dd1fd67, type: 3}
       propertyPath: m_LocalPosition.x
